@@ -97,6 +97,9 @@ static dd4hep::detail::Ref_t createECalBarrelInclined(dd4hep::Detector& aLcdd,
     dd4hep::Volume cryoFrontVol(cryostat.nameStr()+"_front", cryoFrontShape, aLcdd.material(cryostat.materialStr()));
     dd4hep::Volume cryoBackVol(cryostat.nameStr()+"_back", cryoBackShape, aLcdd.material(cryostat.materialStr()));
     dd4hep::Volume cryoSideVol(cryostat.nameStr()+"_side", cryoSideShape, aLcdd.material(cryostat.materialStr()));
+    cryoFrontVol.setVisAttributes(aLcdd, "cryostat");
+    cryoBackVol.setVisAttributes(aLcdd, "cryostat");
+    cryoSideVol.setVisAttributes(aLcdd, "cryostat");
     dd4hep::PlacedVolume cryoFrontPhysVol = envelopeVol.placeVolume(cryoFrontVol);
     dd4hep::PlacedVolume cryoBackPhysVol = envelopeVol.placeVolume(cryoBackVol);
     dd4hep::PlacedVolume cryoSidePhysVol = envelopeVol.placeVolume(cryoSideVol);
@@ -231,6 +234,7 @@ static dd4hep::detail::Ref_t createECalBarrelInclined(dd4hep::Detector& aLcdd,
       dd4hep::Box layerPassiveInnerShape(passiveInnerThickness / 2., caloDim.dz(), layerHeight[iLayer] / 2.);
       dd4hep::Volume layerPassiveInnerVol(passiveInnerMaterial, layerPassiveInnerShape,
                                                     aLcdd.material(passiveInnerMaterial));
+      layerPassiveInnerVol.setVisAttributes(aLcdd, "passive");
       layerPassiveInnerVol.setSensitiveDetector(aSensDet);
       dd4hep::PlacedVolume layerPassiveInnerPhysVol =
           passiveInnerVol.placeVolume(layerPassiveInnerVol, dd4hep::Position(0, 0, layerOffset));
@@ -249,6 +253,7 @@ static dd4hep::detail::Ref_t createECalBarrelInclined(dd4hep::Detector& aLcdd,
       dd4hep::Box layerPassiveOuterShape(passiveOuterThickness / 4., caloDim.dz(), layerHeight[iLayer] / 2.);
       dd4hep::Volume layerPassiveOuterVol(passiveOuterMaterial, layerPassiveOuterShape,
                                                     aLcdd.material(passiveOuterMaterial));
+      layerPassiveOuterVol.setVisAttributes(aLcdd, "passive");
       layerPassiveOuterVol.setSensitiveDetector(aSensDet);
       dd4hep::PlacedVolume layerPassiveOuterPhysVol =
           passiveOuterVol.placeVolume(layerPassiveOuterVol, dd4hep::Position(0, 0, layerOffset));
@@ -266,7 +271,8 @@ static dd4hep::detail::Ref_t createECalBarrelInclined(dd4hep::Detector& aLcdd,
     for (uint iLayer = 0; iLayer < numLayers; iLayer++) {
       dd4hep::Box layerPassiveGlueShape(passiveGlueThickness / 4., caloDim.dz(), layerHeight[iLayer] / 2.);
       dd4hep::Volume layerPassiveGlueVol(passiveGlueMaterial, layerPassiveGlueShape,
-                                                   aLcdd.material(passiveGlueMaterial));
+					 aLcdd.material(passiveGlueMaterial));
+      layerPassiveGlueVol.setVisAttributes(aLcdd, "passive");
       layerPassiveGlueVol.setSensitiveDetector(aSensDet);
       dd4hep::PlacedVolume layerPassiveGluePhysVol =
           passiveGlueVol.placeVolume(layerPassiveGlueVol, dd4hep::Position(0, 0, layerOffset));
@@ -302,6 +308,7 @@ static dd4hep::detail::Ref_t createECalBarrelInclined(dd4hep::Detector& aLcdd,
   passiveGluePhysVolBelow.addPhysVolID("subtype", 3);
   passiveGluePhysVolAbove.addPhysVolID("subtype", 4);
   if (passiveInner.isSensitive()) {
+    passiveInnerVolFirstLayer.setVisAttributes(aLcdd, "passive");
     passiveInnerVolFirstLayer.setSensitiveDetector(aSensDet);
     passiveInnerPhysVolFirstLayer.addPhysVolID("layer", 0);
     dd4hep::DetElement passiveInnerDetElemFirstLayer("layer", 0);
@@ -313,6 +320,7 @@ static dd4hep::detail::Ref_t createECalBarrelInclined(dd4hep::Detector& aLcdd,
   //////////////////////////////
   dd4hep::Box readoutShape(readoutThickness / 2., caloDim.dz(), planeLength / 2.);
   dd4hep::Volume readoutVol(readoutMaterial, readoutShape, aLcdd.material(readoutMaterial));
+  readoutVol.setVisAttributes(aLcdd, "readout");
   if (readout.isSensitive()) {
     lLog << MSG::INFO << "Readout volume set as sensitive" << endmsg;
     double layerOffset = layerFirstOffset;
