@@ -163,14 +163,14 @@ static dd4hep::detail::Ref_t createECalBarrelInclinedFCCee(dd4hep::Detector& aLc
       lLog << MSG::INFO << "Cryostat back warm volume set as sensitive" << endmsg;
     }
     if (cryoSideSensitive) {
-      cryoSideWarmVol.setSensitiveDetector(aSensDet);
-      cryoSideWarmPhysVol.addPhysVolID("cryo", 1);
-      cryoSideWarmPhysVol.addPhysVolID("type", 6);
-      lLog << MSG::INFO << "Cryostat side warm volume set as sensitive" << endmsg;
       cryoSideColdVol.setSensitiveDetector(aSensDet);
       cryoSideColdPhysVol.addPhysVolID("cryo", 1);
-      cryoSideColdPhysVol.addPhysVolID("type", 7);
+      cryoSideColdPhysVol.addPhysVolID("type", 6);
       lLog << MSG::INFO << "Cryostat side cold volume set as sensitive" << endmsg;
+      cryoSideWarmVol.setSensitiveDetector(aSensDet);
+      cryoSideWarmPhysVol.addPhysVolID("cryo", 1);
+      cryoSideWarmPhysVol.addPhysVolID("type", 7);
+      lLog << MSG::INFO << "Cryostat side warm volume set as sensitive" << endmsg;
     }
     dd4hep::DetElement cryoFrontWarmDetElem(caloDetElem, "cryo_front_warm", 0);
     cryoFrontWarmDetElem.setPlacement(cryoFrontWarmPhysVol);

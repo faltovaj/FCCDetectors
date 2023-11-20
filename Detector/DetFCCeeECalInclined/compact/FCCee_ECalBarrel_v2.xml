@@ -21,7 +21,7 @@
 
   <define>
     <!-- Inclination angle of the lead plates -->
-    <constant name="InclinationAngle" value="50*degree"/>
+    <constant name="InclinationAngle" value="50.5*degree"/>
     <!-- thickness of active volume between two absorber plates at barrel Rmin, measured perpendicular to the readout plate -->
     <constant name="LArGapThickness" value="1.239749*2*mm"/>
 
@@ -104,19 +104,19 @@
       <dimensions rmin="BarCryoECal_rmin" rmax="BarCryoECal_rmax" dz="BarCryoECalWarm_dz" vis="ecal_envelope"/>
       <cryostat name="ECAL_Cryo">
         <material name="Aluminum"/>
-        <cryo_front_warm sentive="false">
+        <cryo_front_warm sensitive="false">
           <dimensions rmin="BarCryoECal_rmin" rmax = "BarCryoECal_rmin+CryoBarrelFrontWarm" dz="BarCryoECalWarm_dz"/>
         </cryo_front_warm>
-        <cryo_front_cold sentive="false">
+        <cryo_front_cold sensitive="false">
           <dimensions rmin="BarCryoECal_rmin+CryoBarrelFrontWarm+CryoAirGapThickness" rmax="BarCryoECal_rmin+CryoBarrelFrontWarm+CryoAirGapThickness+CryoBarrelFrontCold" dz="BarCryoECalCold_dz"/>
         </cryo_front_cold>
-	<cryo_back_cold sentive="false">
+	<cryo_back_cold sensitive="false">
           <dimensions rmin="BarCryoECal_rmax-CryoBarrelBackWarm-CryoAirGapThickness-SolenoidBarrel-CryoBarrelBackCold" rmax="BarCryoECal_rmax-CryoBarrelBackWarm-CryoAirGapThickness-SolenoidBarrel" dz="BarCryoECalCold_dz"/>
 	</cryo_back_cold>
-	<cryo_solenoid sentive="false">
+	<cryo_solenoid sensitive="false">
           <dimensions rmin="BarCryoECal_rmax-CryoBarrelBackWarm-0.5*CryoAirGapThickness-SolenoidBarrel" rmax="BarCryoECal_rmax-CryoBarrelBackWarm-0.5*CryoAirGapThickness" dz="BarCryoECalCold_dz"/>
 	</cryo_solenoid>
-        <cryo_back_warm sentive="false">
+        <cryo_back_warm sensitive="false">
           <dimensions rmin="BarCryoECal_rmax-CryoBarrelBackWarm" rmax = "BarCryoECal_rmax" dz="BarCryoECalWarm_dz"/>
         </cryo_back_warm>
         <cryo_side_cold sensitive="false">
@@ -154,8 +154,25 @@
           <material name="PCB"/>
         </readout>
         <layers> <!-- pcb electrode segmentation in the radial direction -->
-           <layer thickness="1.5*cm" repeat="1"/>
-           <layer thickness="3.5*cm" repeat="11"/>
+	  <!-- From Nicolas' calculation: 
+	  - 1536 electrodes
+	  - inclination angle for projective geometry is 50.5 degrees
+	  - Lengths of layers on the electrode (cm)
+	  [2.32 4.73 4.87 5.01 5.16 5.33 5.5  5.69 5.89 6.1  6.33]
+	  - Lengths of layers scaled to calo depth (cm)
+	  i.e what you should put in the calo xml file
+	  [1.63 3.32 3.42 3.52 3.63 3.74 3.87 4.   4.14 4.29 4.45] -->
+           <layer thickness="1.63*cm" repeat="1"/>
+           <layer thickness="3.32*cm" repeat="1"/>
+	   <layer thickness="3.42*cm" repeat="1"/>
+	   <layer thickness="3.52*cm" repeat="1"/>
+	   <layer thickness="3.63*cm" repeat="1"/>
+	   <layer thickness="3.74*cm" repeat="1"/>
+	   <layer thickness="3.87*cm" repeat="1"/>
+	   <layer thickness="4.00*cm" repeat="1"/>
+	   <layer thickness="4.14*cm" repeat="1"/>
+	   <layer thickness="4.29*cm" repeat="1"/>
+	   <layer thickness="4.45*cm" repeat="1"/>
         </layers>
       </calorimeter>
     </detector>
